@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from plot_raw import load
 import sys, numpy as np
 
-strain_H1, strain_L1, time, event = load(sys.argv[2], "GW150914")
+strain_H1, strain_L1, time, event = load(sys.argv[2])
 
 fs = event['fs'] # 4096Hz by default
 N = len(strain_H1)

@@ -2,10 +2,12 @@ output/specgram.png: data/BBH_events_v3.json
 	mkdir -p $(dir $@)
 	python3 specgram.py $@ $^
 
+# Generate frequency image
 output/frequency.png: data/BBH_events_v3.json
 	mkdir -p $(dir $@)
 	python3 fourier.py $@ $^
 
+# Generate raw waveform
 output/raw-waveform.png: data/BBH_events_v3.json
 	mkdir -p $(dir $@)
 	python3 plot_raw.py $@ $^
