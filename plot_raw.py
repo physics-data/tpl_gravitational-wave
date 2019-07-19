@@ -21,15 +21,15 @@ def load(index, evt_name="GW150914"):
     fn_L1 = "data/" + event['fn_L1']
     strain_L1, time, chan_dict_L1 = rl.loaddata(fn_L1)
 
+    event['tevent'] = event['tevent'] - time[0]
     time = time - time[0]
-    
+
     return strain_H1, strain_L1, time, event
 
 if __name__=='__main__':
     import sys
     
     strain_H1, strain_L1, time, event = load(sys.argv[2], "GW150914")
-
     import matplotlib as mpl
     mpl.use("Agg")
 

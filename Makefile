@@ -1,3 +1,6 @@
+output/specgram.png: data/BBH_events_v3.json
+	mkdir -p $(dir $@)
+	python3 specgram.py $@ $^
 
 output/frequency.png: data/BBH_events_v3.json
 	mkdir -p $(dir $@)
