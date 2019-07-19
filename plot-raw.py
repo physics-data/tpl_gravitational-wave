@@ -1,20 +1,31 @@
 import json, sys
 
-events = json.load(open(sys.argv[2], "r"))
-event = events['GW150914']
+def load(index, evt_name="GW150914"):
+    '''
 
-import readligo as rl
+    从 .json 目录中读取引力波事件的信息，从里面记载的文件名中
+    进一步读取拉伸 (strain) 数据。
 
-fn_H1 = "data/" + event['fn_H1']
-strain_H1, time, chan_dict_H1 = rl.loaddata(fn_H1, 'H1')
-fn_L1 = "data/" + event['fn_L1']
-strain_L1, time, chan_dict_L1 = rl.loaddata(fn_L1, 'L1')
+    - index: .json 目录的文件名
+    - evt_name: 想要读取的引力波事例名
+    - 返回：H 地信号，L 地信号，时间，事例信息
+    '''
+    events = json.load(open(index, "r"))
+    event = events[evt_name]
 
-tevent = event['tevent'] - time[0]
-# Time since 9:50:29 GMT 2015
-time = time - time[0]
-# Sampling rate
-fs = event['fs']
+    import readligo as rl
+
+    ## FIXME!! data 路径写死了，应当可变
+    fn_H1 = "data/" + event['fn_H1']
+    strain_H1, time, chan_dict_H1 = rl.loaddata(fn_H1)
+    fn_L1 = "data/" + event['fn_L1']
+    strain_L1, time, chan_dict_L1 = rl.loaddata(fn_L1)
+
+    time = time - time[0]
+    
+    return strain_H1, strain_L1, time, event
+
+strain_H1, strain_L1, time, event = load(sys.argv[2], "GW150914")
 
 import matplotlib as mpl
 mpl.use("Agg")
