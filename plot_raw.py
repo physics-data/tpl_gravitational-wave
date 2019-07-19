@@ -1,4 +1,4 @@
-import json, sys
+import json
 
 def load(index, evt_name="GW150914"):
     '''
@@ -25,19 +25,22 @@ def load(index, evt_name="GW150914"):
     
     return strain_H1, strain_L1, time, event
 
-strain_H1, strain_L1, time, event = load(sys.argv[2], "GW150914")
+if __name__=='__main__':
+    import sys
+    
+    strain_H1, strain_L1, time, event = load(sys.argv[2], "GW150914")
 
-import matplotlib as mpl
-mpl.use("Agg")
+    import matplotlib as mpl
+    mpl.use("Agg")
 
-import matplotlib.pyplot as plt
-plt.figure(figsize=(10,8))
-plt.plot(time, strain_H1, label="H1")
-plt.plot(time, strain_L1, label="L1")
-plt.vlines((16,), ymin=-2e-18, ymax=1e-18)
-plt.title("Strains of 2 detectors")
-plt.xlabel('time since Sep 14 9:50:29 GMT 2015 [s]');
-plt.ylabel('strain')
-plt.grid('on')
-plt.legend()
-plt.savefig(sys.argv[1])
+    import matplotlib.pyplot as plt
+    plt.figure(figsize=(10,8))
+    plt.plot(time, strain_H1, label="H1")
+    plt.plot(time, strain_L1, label="L1")
+    plt.vlines((16,), ymin=-2e-18, ymax=1e-18)
+    plt.title("Strains of 2 detectors")
+    plt.xlabel('time since Sep 14 9:50:29 GMT 2015 [s]');
+    plt.ylabel('strain')
+    plt.grid('on')
+    plt.legend()
+    plt.savefig(sys.argv[1])
