@@ -1,6 +1,9 @@
 
+output/raw-waveform.png: data/BBH_events_v3.json
+	mkdir -p $(dir $@)
+	python3 plot-raw.py $@ $^
 
-# 准备数据
+# 准备数据，如果已经准备好请忽略。
 data:
 	mkdir $@
 	cd $@
